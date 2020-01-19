@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+var BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+plugins: [new BundleAnalyzerPlugin()]
 
 module.exports = {
   entry: {
@@ -25,7 +28,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Code Compete',
       template: './client/index.html'
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ],
   mode: process.env.NODE_ENV,
   output: {

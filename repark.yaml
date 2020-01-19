@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: repark-test
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      repark: web
+  template:
+    metadata:
+      labels:
+        repark: web
+    spec:
+      containers:
+      - name: repark-site
+        image: repark:1.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: repark-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    repark: web
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30001
